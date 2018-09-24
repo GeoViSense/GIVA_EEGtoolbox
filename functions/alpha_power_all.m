@@ -1,4 +1,4 @@
-function  mean_alpha_across_channels = alpha_power(n_epoch, stim_spectrum,baseline_spectrum,selected_ch_id)
+function  mean_alpha_across_epochs = alpha_power_all(n_epoch, stim_spectrum,baseline_spectrum,selected_ch_id)
 
 clear alpha_ratio
 for ch = selected_ch_id' %calculate alpha power at selected channels
@@ -10,15 +10,11 @@ for ch = selected_ch_id' %calculate alpha power at selected channels
     end
 end
 
-% Average the alpha power ratio across the selected channels
-sum_alpha_ratio=0;
+% Average the alpha power ratio across epochs
+ch_count=1;
 for ch = selected_ch_id'
-    if sum(sum(isnan(alpha_ratio{ch}))) || sum(sum(isinf(alpha_ratio{ch})))  
-        % skip epochs which have NaN or inf
-        continue
-    end
-
-    sum_alpha_ratio = sum_alpha_ratio + alpha_ratio{ch};
+    alpha_across_epoch(ch_count) = mean(nanmean(alpha_ratio{ch},1));
+    ch_count = ch_count + 1;
 end
 
-mean_alpha_across_channels = sum_alpha_ratio/size(selected_ch_id,1);
+mean_alpha_across_epochs = alpha_across_epoch;
