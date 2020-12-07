@@ -15,5 +15,8 @@ for epoch = 1:n_epoch
     end
 end
 
-% Average the arousal level across epochs and segments, excluding NaNs that may occur.
-mean_engage_across_channels = mean2(arousal_ratio(~isnan(arousal_ratio)));
+% % Average the arousal level across epochs and segments, excluding NaNs that may occur.
+% mean_engage_across_channels = mean2(arousal_ratio(~isnan(arousal_ratio)));
+
+% average across segments
+mean_engage_across_channels = mean(arousal_ratio,2);
