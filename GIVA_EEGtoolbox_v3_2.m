@@ -420,11 +420,11 @@ file = cell(size(eeg_spectrum,1),1);
 
 switch measure_type
     case 1 % alpha power
-        mean_alpha = nan(size(eeg_spectrum,1),8);
+        mean_alpha = cell(size(eeg_spectrum,1),1);
         for count = 1:size(eeg_spectrum,1)
             file{count} = eeg_spectrum{count}.file;
             scores{count}.mean_alpha_across_channels = alpha_power(eeg_spectrum{count}.n_epoch, eeg_spectrum{count}.stim_spectrum, eeg_spectrum{count}.baseline_spectrum,selected_ch_id);
-            mean_alpha(count,:) = mean(scores{count}.mean_alpha_across_channels,2)';
+            mean_alpha{count} = mean(scores{count}.mean_alpha_across_channels,2)';
         end
         
         % Make a table
@@ -435,11 +435,11 @@ switch measure_type
         
 
     case 2 % FAA
-        mean_FAA = nan(size(eeg_spectrum,1),8);
+        mean_FAA = cell(size(eeg_spectrum,1),1);
         for count = 1:size(eeg_spectrum,1)
             file{count} = eeg_spectrum{count}.file;
             scores{count}.FAA = FAA_calculation(eeg_spectrum{count}.n_epoch, eeg_spectrum{count}.stim_spectrum,eeg_spectrum{count}.baseline_spectrum);
-            mean_FAA(count,:) = scores{count}.FAA';
+            mean_FAA{count} = scores{count}.FAA';
         end
         
         % Make a table
@@ -450,11 +450,11 @@ switch measure_type
                 
         
     case 3 % Engagement index
-        mean_engage = nan(size(eeg_spectrum,1),8);
+        mean_engage = cell(size(eeg_spectrum,1),1);
         for count = 1:size(eeg_spectrum,1)
             file{count} = eeg_spectrum{count}.file;
             scores{count}.mean_engage_across_channels = engage_level(eeg_spectrum{count}.n_epoch, eeg_spectrum{count}.stim_spectrum, eeg_spectrum{count}.baseline_spectrum,selected_ch_id);
-            mean_engage(count,:) = mean(scores{count}.mean_engage_across_channels,2)';
+            mean_engage{count} = mean(scores{count}.mean_engage_across_channels,2)';
         end
         
         % Make a table
@@ -464,10 +464,10 @@ switch measure_type
         disp(['Analysis result is saved in the folder ''Results'' under a file name ''[Engagement level] ' result_filename ''''])
         
     case 4 % Arousal
-        mean_arousal = nan(size(eeg_spectrum,1),8);
+        mean_arousal = cell(size(eeg_spectrum,1),1);
         for count = 1:size(eeg_spectrum,1)
             file{count} = eeg_spectrum{count}.file;
-            mean_arousal(count,:) = Arousal(eeg_spectrum{count}.n_epoch, eeg_spectrum{count}.stim_spectrum, eeg_spectrum{count}.baseline_spectrum)';
+            mean_arousal{count} = Arousal(eeg_spectrum{count}.n_epoch, eeg_spectrum{count}.stim_spectrum, eeg_spectrum{count}.baseline_spectrum)';
         end
         
         % Make a table
